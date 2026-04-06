@@ -1,0 +1,98 @@
+#Task 1
+
+a=40
+b=30
+print("Add:",a+b)
+print("Sub:",a-b)
+print("Multi:",a*b)
+print("Div:",a/b)
+print("Mod:",a%b)
+print("Floor div:",a//b)
+print("Expo:",a**b)
+
+
+#Task 2
+
+l=4
+b=2
+print("Rectangle")
+print("area:",l*b)
+print("perimeter:",2*(l+b))
+a=3
+print("square")
+print("area:",a**2)
+print("perimeter:",2*a)
+r=5
+f=3.14#value of pie
+print("Circle")
+print("area:",f*r**2)
+print("perimeter:",2*f*r)
+
+
+#Task 3
+
+a=5
+b=3
+c=1
+print("Average of the three number:",(a+b+c)/3)
+
+#Task 4
+
+print("Check the given programme")
+a=6
+b=8
+print("whether the given variable is equal or not:")
+print(a==b)
+x=9
+y=6
+print("whether the given variable is greater than another one:")
+print(x>y)
+o=4
+p=7
+print("whether the given variable is les than or equal to another:")
+print(o>=p)
+
+#Task 5
+
+a=6
+print("Find the square root of given num")
+print(a**2)
+
+# Task 6
+p=4
+r=5
+t=6
+print("Find the simple insterset value:")
+print(p*r*t/100)
+p=1
+n=2
+r=3
+print("Find the compound interest value:")
+print(p*(1+r/100)**n)
+
+#Task 7
+
+print("Assignment Operater:")
+x=10
+x+=5 #10+5=15
+x-=3 #15-3=12
+x*=2 #24
+x/=4 #6
+x%=2 #0 
+x**=3 #0
+print(x)
+
+#Task 10
+a=3
+print("find the cube root of given num")
+print(a**3)
+
+
+
+
+
+
+
+
+
+
