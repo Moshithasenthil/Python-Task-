@@ -1,0 +1,50 @@
+#case conversion
+name="moushitha"
+print(name.capitalize())
+print(name.upper())
+print(name.lower())
+print(name.title())
+print(name.swapcase())
+#allignment and padding
+name="preetha monesh"
+print(name.center(34))
+print(name.ljust(54))
+print(name.rjust(55))
+print(name.zfill(20))
+#Trimmingand removing white space
+name="     ruthishtha      "
+print(name)
+print(name.strip())
+print(name.rstrip())
+print(name.lstrip())
+#search and replace
+name="theertha"
+print(name.find("e"))
+print(name.rfind("r"))
+print(name.index("t"))
+print(name.replace("h","@"))
+print(name.count("e"))
+print(name.startswith("t"))
+print(name.endswith("o"))
+#Testing and contents
+f="Ezhil"
+print(f.isalpha())
+print(f.isdigit())
+print(f.isalnum())
+print(f.isspace())
+print(f.islower())
+print(f.isupper())
+print(f.istitle())
+#split and joining
+g="senthil kumar"
+print(g.split("k"))
+print(g.partition(","))
+print("".join(["senthil","kumar"]))
+#slicing
+a="kishna"
+print(a[0:4])
+print(a[2:4])
+print(a[-3::-1])
+print(a[-2:-1])
+print(a[::3])
+print(a[::-1])
