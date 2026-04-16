@@ -1,0 +1,10 @@
+#Task 5
+l=[1,4,6,7,4]
+print(l)
+l.extend([3,5,8,9])
+l.remove(4)
+print(l)
+
+
+
+
