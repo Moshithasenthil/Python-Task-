@@ -1,0 +1,111 @@
+#Task 1 palindrome in string
+word=input("Enter the word:")
+reverse=word[::-1]
+if reverse==word:
+    print("the word is palindrome")
+else:
+    print("the word is not palindrome")
+    
+#Task 1 palindrome in integer
+n=int(input("Enter the integer:"))
+t=n
+r=0
+while t>0:
+    d=t%10
+    r=r*10+d
+    t//=10
+if n==r:
+    print("the integer is palindrome")
+else:
+    print("the integer is not palindrome")
+    
+#Task 3 harzard
+n=int(input("Enter the number:"))
+t=n
+sum=0
+while t>0:
+    d=t%10
+    sum=d
+    t//=10
+if n%sum==0:
+    print("the number is harzard")
+else:
+    print("the number is not harzard")
+
+#Task 4 armstrong
+n=int(input("Enter the number:"))
+t=n
+a=n
+c=0
+while t>0:
+    t//=10
+    c+=1
+print(c)
+sum=0
+while a>0:
+    d1=a%10
+    sum+=d1**c
+    a//=10
+if n==sum:
+    print("the number is armstrong")
+else:
+    print("the number is not armstrong")
+    
+#Task 5 prime no
+n=int(input("Enter the number:"))
+if n<0:
+    print("it is not prime no")
+else:
+    for i in range (2,n):
+        if n%i==0:
+            print("not a prime no")
+            break
+        else:
+            print("it is a prime no")
+            
+#Task 6 pattern
+n=int(input("Enter the number:"))
+for i in range(n):
+    for j in range(i):
+        print(" ",end="")
+    for k in range(i,n):
+        print("* ",end="")
+    print()
+      
+#Task 8  factorial using loop
+mul=1
+for i in range(1,12):
+    mul*=i
+print("mul=",mul)
+
+#Task 9 buzz number
+n=int(input("Enter the number:"))
+if n%7==0 or n%10==7:
+    print("the number is buzz")
+else:
+    print("the number is not buzz")
+    
+#Task 10 printing the letter
+for i in range(3):
+    for j in range(3):
+        if i==0 and j==0:
+            print("*",end="")
+        elif i==1 and j==0:
+            print("*",end="")
+        elif i==2 and j==0:
+            print("*",end="")
+        elif i==2 and j==1:
+            print("*",end="")
+        elif i==2 and j==2:
+            print("*",end="")
+    print()
+            
+        
+        
+    
+
+    
+    
+
+    
+    022
