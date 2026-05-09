@@ -1,0 +1,52 @@
+def sofa():
+    print("viewing sofa collection")
+def bed():
+    print("viewing bed collection")
+def tv_stand():
+    print("viewing tv stand collection")
+def wadrobe():
+    print("viewing wadrobe collection")
+def dining_table():
+    print("viewing dining table collection")
+def window():
+    print("viewing window collection")
+def door():
+    print("viewing door collection")
+def swing():
+    print("viewing swing collection")
+def dressing_table():
+    print("viewing dressing table collection")
+def teapoy():
+    print("viewing teapoy collection")
+
+
+while True:
+    print(">>>Timber Charm💡<<<")
+    items=["1.sofa","2.bed","3.tv_stand","4.wadrobe","5.dining_table","6.window","7.door","8.swing","9.dressing_table","10.teapoy","11.exit....."]
+    for i in items:
+        print(i)
+    choice=int(input("Enter your choice:"))
+    if choice==1:
+        sofa()
+    elif choice==2:
+        bed()
+    elif choice==3:
+        tv_stand()
+    elif choice==4:
+        wadrobe()
+    elif choice==5:
+        dining_table()
+    elif choice==6:
+        window()
+    elif choice==7:
+        door()
+    elif choice==8:
+        swing()
+    elif choice==9:
+        dressing_table()
+    elif choice==10:
+        teapoy()
+    elif choice==11:
+        break
+    else:
+        print("Enter a valid choice")
