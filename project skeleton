@@ -1,5 +1,47 @@
+
 def sofa():
+    def high_budget():
+        print("1,15,000 to 2,40,000")
+    def middle_budget():
+        print("65,000 to 90,000")
+    def low_budget():
+        print("30,000 to 45,000")
+    def teak():
+        print("teak material")
+    def oak():
+        print("oak material")
+    def indian_rosewood():
+        print("indian rosewood")
+    def pine():
+        print("pine")
     print("viewing sofa collection")
+    items=["1.high_budget","2.middle_budget","3.low_budget"]
+    for i in items:
+        print(i)
+    choice=int(input("Enter your choice:"))
+    if choice==1:
+        high_budget()
+    elif choice==2:
+        middle_budget()
+    elif choice==3:
+        low_budget()
+    else:
+        print("Enter a valid choice")
+    items=["1.teak","2.oak","3.indian_rosewood","4.pine"]
+    for i in items:
+        print(i)
+    choice=int(input("Enter your choice:"))
+    if choice==1:
+        teak()
+    elif choice==2:
+        oak()
+    elif choice==3:
+        indian_rosewood()
+    elif choice==4:
+        pine()
+    else:
+        print("Enter a valid choice")
+
 def bed():
     print("viewing bed collection")
 def tv_stand():
@@ -18,8 +60,6 @@ def dressing_table():
     print("viewing dressing table collection")
 def teapoy():
     print("viewing teapoy collection")
-
-
 while True:
     print(">>>Timber Charm💡<<<")
     items=["1.sofa","2.bed","3.tv_stand","4.wadrobe","5.dining_table","6.window","7.door","8.swing","9.dressing_table","10.teapoy","11.exit....."]
@@ -50,3 +90,4 @@ while True:
         break
     else:
         print("Enter a valid choice")
+
