@@ -1,47 +1,119 @@
-
+from PIL import Image as i
 def sofa():
-    def high_budget():
-        print("1,15,000 to 2,40,000")
-    def middle_budget():
-        print("65,000 to 90,000")
-    def low_budget():
-        print("30,000 to 45,000")
     def teak():
         print("teak material")
+    def high_budget():
+        print("high budget")
+    def classic():
+        s=i.open("C:\\Users\\admin\\Downloads\\teakwood classic.jpeg")
+        s.show()
+    def trend():
+        print("trend material")
+    def middle_budget():
+        print("middle budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
+    def low_budget():
+        print("low budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
     def oak():
         print("oak material")
+    def high_budget():
+        print("high budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
+    def middle_budget():
+        print("middle budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
+    def low_budget():
+        print("low budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
     def indian_rosewood():
         print("indian rosewood")
+    def high_budget():
+        print("high budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
+    def middle_budget():
+        print("middle budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
+    def low_budget():
+        print("low budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
     def pine():
         print("pine")
+    def high_budget():
+        print("high_budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
+    def middle_budget():
+        print("middle_budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
+    def low_budget():
+        print("low_budget")
+    def classic():
+        print("classic material")
+    def trend():
+        print("trend material")
     print("viewing sofa collection")
-    items=["1.high_budget","2.middle_budget","3.low_budget"]
+    items = ["1.teak", "2.oak", "3.indian_rosewood", "4.pine"]
     for i in items:
         print(i)
-    choice=int(input("Enter your choice:"))
-    if choice==1:
-        high_budget()
-    elif choice==2:
-        middle_budget()
-    elif choice==3:
-        low_budget()
-    else:
-        print("Enter a valid choice")
-    items=["1.teak","2.oak","3.indian_rosewood","4.pine"]
-    for i in items:
-        print(i)
-    choice=int(input("Enter your choice:"))
-    if choice==1:
+    choice = int(input("Enter your choice:"))
+    if choice == 1:
         teak()
-    elif choice==2:
+    elif choice == 2:
         oak()
-    elif choice==3:
+    elif choice == 3:
         indian_rosewood()
-    elif choice==4:
+    elif choice == 4:
         pine()
     else:
         print("Enter a valid choice")
-
+    items=["1.high_budget","2.middle_budget","3.low_budget"]
+    for i in items:
+        print(i)
+    choice = int(input("Enter your choice:"))
+    if choice == 1:
+        high_budget()
+    if choice == 2:
+        middle_budget()
+    if choice == 3:
+        low_budget()
+    items=["1.classic","2.trend"]
+    for i in items:
+        print(i)
+    choice = int(input("Enter your choice:"))
+    if choice == 1:
+        classic()
+    if choice == 2:
+        trend()
 def bed():
     print("viewing bed collection")
 def tv_stand():
