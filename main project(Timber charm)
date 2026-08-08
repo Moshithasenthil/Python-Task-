@@ -1,0 +1,463 @@
+from PIL import Image, ImageDraw, ImageFont
+import os
+
+# ============================================================
+# TIMBER CHARM - CUSTOM WOOD FURNITURE DESIGN SYSTEM
+# ============================================================
+
+FURNITURE = {
+    "1": ("Sofa", ["Teak", "Oak", "Indian Rosewood", "Pine"]),
+    "2": ("Bed", ["Teak", "Walnut", "Indian Rosewood", "Mango"]),
+    "3": ("TV Stand", ["Teak", "Vengai", "Indian Rosewood", "Plywood"]),
+    "4": ("Wardrobe", ["Teak", "White Oak", "Plywood", "Pine"]),
+    "5": ("Dining Table", ["Teak", "Sal", "Indian Rosewood", "Mango"]),
+    "6": ("Window", ["Teak", "Sal", "Vengai", "Pine"]),
+    "7": ("Door", ["Teak", "Sal", "Indian Rosewood", "Plywood"]),
+    "8": ("Swing", ["Teak", "Vengai", "Indian Rosewood", "Mahogany"]),
+    "9": ("Dressing Table", ["Teak", "Mango", "Indian Rosewood", "Plywood"]),
+    "10": ("Teapoy", ["Teak", "Oak", "Indian Rosewood", "Pine"])
+}
+
+DESIGNS = {
+    "1": "Classic",
+    "2": "Modern",
+    "3": "Traditional",
+    "4": "Contemporary"
+}
+
+WOOD_COLORS = {
+    "Teak": "#A66A2C",
+    "Oak": "#C18A52",
+    "Indian Rosewood": "#542A1A",
+    "Pine": "#D9B77A",
+    "Walnut": "#5A3825",
+    "Mango": "#B87935",
+    "Vengai": "#6B351D",
+    "Plywood": "#C49A6C",
+    "White Oak": "#E2C79D",
+    "Sal": "#8F542E",
+    "Mahogany": "#6E2F22"
+}
+
+OUTLINE = "#2B2118"
+
+
+# ============================================================
+# INPUT FUNCTIONS
+# ============================================================
+
+def get_font(size, bold=False):
+    paths = (
+        ["C:/Windows/Fonts/arialbd.ttf",
+         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"]
+        if bold else
+        ["C:/Windows/Fonts/arial.ttf",
+         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"]
+    )
+
+    for path in paths:
+        if os.path.exists(path):
+            return ImageFont.truetype(path, size)
+
+    return ImageFont.load_default()
+
+
+def display_menu(title, items):
+    print("\n" + "=" * 55)
+    print(title)
+    print("=" * 55)
+
+    for key, value in items.items():
+        print(f"{key}. {value}")
+
+
+def get_choice(options, message):
+    while True:
+        choice = input(message).strip()
+        if choice in options:
+            return choice
+        print("Invalid choice. Please try again.")
+
+
+def get_positive_number(message):
+    while True:
+        try:
+            value = float(input(message))
+            if value > 0:
+                return value
+            print("Value must be greater than zero.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+
+def get_quantity():
+    while True:
+        try:
+            value = int(input("Enter quantity: "))
+            if value > 0:
+                return value
+            print("Quantity must be greater than zero.")
+        except ValueError:
+            print("Please enter a valid whole number.")
+
+
+def get_dimensions():
+    sizes = {
+        "Length": [36, 48, 60, 72],
+        "Width": [18, 24, 30, 36],
+        "Height": [18, 24, 30, 36]
+    }
+
+    result = []
+
+    print("\nEnter the required dimensions.")
+
+    for name, choices in sizes.items():
+        print(f"\n{name}:")
+        for i, size in enumerate(choices, 1):
+            print(f"{i}. {size} inches")
+        print("C. Custom Size")
+
+        while True:
+            choice = input(
+                f"Enter {name.lower()} choice: "
+            ).strip().lower()
+
+            if choice == "c":
+                value = get_positive_number(
+                    f"Enter custom {name.lower()} in inches: "
+                )
+                break
+
+            if choice.isdigit() and 1 <= int(choice) <= len(choices):
+                value = choices[int(choice) - 1]
+                break
+
+            print("Invalid choice. Please try again.")
+
+        result.append(value)
+
+    return tuple(result)
+
+
+# ============================================================
+# DRAWING HELPERS
+# ============================================================
+
+def rect(draw, box, color, width=6, outline=OUTLINE):
+    draw.rectangle(box, fill=color, outline=outline, width=width)
+
+
+def line(draw, points, width=6, color=OUTLINE):
+    draw.line(points, fill=color, width=width)
+
+
+def ellipse(draw, box, color, outline=None, width=1):
+    draw.ellipse(box, fill=color, outline=outline, width=width)
+
+
+# ============================================================
+# FURNITURE DRAWING
+# ============================================================
+
+def draw_furniture(draw, furniture, wood):
+    color = WOOD_COLORS.get(wood, "#A66A2C")
+
+    if furniture == "Sofa":
+        rect(draw, [350, 400, 850, 550], color)
+        rect(draw, [380, 330, 820, 450], color)
+        rect(draw, [400, 300, 500, 420], "#D6B08A", 5)
+        rect(draw, [700, 300, 800, 420], "#D6B08A", 5)
+        rect(draw, [390, 530, 440, 650], color, 5)
+        rect(draw, [760, 530, 810, 650], color, 5)
+
+    elif furniture == "Bed":
+        rect(draw, [300, 350, 900, 600], "#D6B08A", 7)
+        rect(draw, [300, 270, 900, 370], color, 7)
+        rect(draw, [350, 370, 850, 450], "#EFE1D0", 4)
+        rect(draw, [350, 580, 410, 680], color)
+        rect(draw, [790, 580, 850, 680], color)
+
+    elif furniture in ("Dining Table", "Teapoy"):
+        w = 600 if furniture == "Dining Table" else 400
+        x1, x2 = 600 - w // 2, 600 + w // 2
+
+        rect(draw, [x1, 380, x2, 470], color, 7)
+        rect(draw, [x1 + 40, 470, x1 + 100, 650], color, 5)
+        rect(draw, [x2 - 100, 470, x2 - 40, 650], color, 5)
+
+        if furniture == "Dining Table":
+            rect(draw, [x1 + 100, 470, x1 + 150, 650], color, 5)
+            rect(draw, [x2 - 150, 470, x2 - 100, 650], color, 5)
+
+    elif furniture == "TV Stand":
+        rect(draw, [300, 450, 900, 570], color, 7)
+        rect(draw, [370, 570, 500, 650], color, 5)
+        rect(draw, [700, 570, 830, 650], color, 5)
+        rect(draw, [420, 330, 780, 440], "#222222", 7, "#111111")
+
+    elif furniture == "Wardrobe":
+        rect(draw, [400, 250, 800, 680], color, 8)
+        line(draw, [600, 250, 600, 680])
+        ellipse(draw, [570, 450, 590, 470], "#D4AF37")
+        ellipse(draw, [610, 450, 630, 470], "#D4AF37")
+
+    elif furniture == "Door":
+        rect(draw, [430, 200, 770, 700], color, 9)
+        draw.rectangle(
+            [480, 260, 720, 630],
+            outline="#3A2418",
+            width=7
+        )
+        ellipse(draw, [680, 450, 710, 480], "#D4AF37")
+
+    elif furniture == "Window":
+        rect(draw, [350, 250, 850, 650], color, 10)
+        rect(draw, [400, 300, 600, 600], "#BFE3F2")
+        rect(draw, [600, 300, 800, 600], "#BFE3F2")
+
+    elif furniture == "Swing":
+        line(draw, [400, 250, 600, 650], 12)
+        line(draw, [800, 250, 600, 650], 12)
+        rect(draw, [430, 480, 770, 570], color, 7)
+        rect(draw, [470, 570, 520, 650], color, 5)
+        rect(draw, [680, 570, 730, 650], color, 5)
+
+    elif furniture == "Dressing Table":
+        rect(draw, [350, 480, 850, 570], color, 7)
+        rect(draw, [400, 570, 470, 680], color)
+        rect(draw, [730, 570, 800, 680], color)
+        rect(draw, [450, 250, 750, 470], "#BFE3F2", 8)
+
+    else:
+        rect(draw, [350, 350, 850, 550], color, 7)
+        rect(draw, [400, 550, 470, 680], color, 5)
+        rect(draw, [730, 550, 800, 680], color, 5)
+
+
+# ============================================================
+# OUTPUT IMAGE
+# ============================================================
+
+def create_output_image(
+    furniture, wood, length, width, height, design, quantity
+):
+    W, H = 1200, 1500
+    image = Image.new("RGB", (W, H), "#F7F2EA")
+    draw = ImageDraw.Draw(image)
+
+    title_font = get_font(52, True)
+    heading_font = get_font(32, True)
+    normal_font = get_font(27)
+    small_font = get_font(22)
+
+    # Header
+    draw.rectangle([0, 0, W, 150], fill="#4A2C1A")
+    draw.text(
+        (600, 45), "TIMBER CHARM",
+        fill="white", font=title_font, anchor="mm"
+    )
+    draw.text(
+        (600, 105), "CUSTOM WOOD FURNITURE DESIGN",
+        fill="#E8D5B7", font=small_font, anchor="mm"
+    )
+
+    # Product title
+    draw.text(
+        (600, 190), furniture.upper(),
+        fill="#4A2C1A", font=heading_font, anchor="mm"
+    )
+    draw.text(
+        (600, 235), f"{design} Design",
+        fill="#8B5E34", font=normal_font, anchor="mm"
+    )
+
+    # Furniture
+    draw_furniture(draw, furniture, wood)
+
+    # Requirements box
+    top, bottom = 720, 1320
+
+    draw.rounded_rectangle(
+        [100, top, 1100, bottom],
+        radius=25,
+        fill="white",
+        outline="#B48A60",
+        width=4
+    )
+
+    draw.text(
+        (600, 770),
+        "CUSTOMER REQUIREMENTS",
+        fill="#4A2C1A",
+        font=heading_font,
+        anchor="mm"
+    )
+
+    requirements = [
+        ("Furniture", furniture),
+        ("Wood Material", wood),
+        ("Length", f"{length:g} inches"),
+        ("Width", f"{width:g} inches"),
+        ("Height", f"{height:g} inches"),
+        ("Design", design),
+        ("Quantity", str(quantity))
+    ]
+
+    y = 850
+
+    for label, value in requirements:
+        draw.text(
+            (180, y), f"{label}:",
+            fill="#6A4A32", font=normal_font
+        )
+        draw.text(
+            (500, y), value,
+            fill="#222222", font=normal_font
+        )
+        draw.line(
+            [170, y + 45, 1030, y + 45],
+            fill="#E0D3C3",
+            width=2
+        )
+        y += 65
+
+    # Footer
+    draw.rectangle([0, 1400, W, H], fill="#4A2C1A")
+    draw.text(
+        (600, 1445),
+        "CUSTOM DESIGN SPECIFICATION",
+        fill="white",
+        font=small_font,
+        anchor="mm"
+    )
+
+    # Save
+    os.makedirs("design_outputs", exist_ok=True)
+
+    filename = (
+        f"design_outputs/"
+        f"{furniture.replace(' ', '_')}_"
+        f"{wood.replace(' ', '_')}.png"
+    )
+
+    image.save(filename)
+    return filename
+
+
+# ============================================================
+# MAIN SYSTEM
+# ============================================================
+
+def timber_charm():
+    print("\n" + "=" * 60)
+    print("              TIMBER CHARM")
+    print("       CUSTOM WOOD FURNITURE DESIGN")
+    print("=" * 60)
+
+    # Step 1: Furniture
+    furniture_options = {
+        key: value[0] for key, value in FURNITURE.items()
+    }
+
+    display_menu(
+        "STEP 1 - SELECT FURNITURE",
+        furniture_options
+    )
+
+    furniture_choice = get_choice(
+        furniture_options,
+        "Enter furniture choice: "
+    )
+
+    furniture, wood_list = FURNITURE[furniture_choice]
+
+    # Step 2: Wood
+    woods = {
+        str(i + 1): wood
+        for i, wood in enumerate(wood_list)
+    }
+
+    display_menu(
+        f"STEP 2 - SELECT WOOD FOR {furniture.upper()}",
+        woods
+    )
+
+    wood_choice = get_choice(
+        woods,
+        "Enter wood choice: "
+    )
+
+    wood = woods[wood_choice]
+
+    # Step 3: Dimensions
+    print("\n" + "=" * 55)
+    print("STEP 3 - ENTER REQUIRED SIZE")
+    print("=" * 55)
+
+    length, width, height = get_dimensions()
+
+    # Step 4: Design
+    display_menu(
+        "STEP 4 - SELECT DESIGN",
+        DESIGNS
+    )
+
+    design_choice = get_choice(
+        DESIGNS,
+        "Enter design choice: "
+    )
+
+    design = DESIGNS[design_choice]
+
+    # Step 5: Quantity
+    print("\n" + "=" * 55)
+    print("STEP 5 - ENTER QUANTITY")
+    print("=" * 55)
+
+    quantity = get_quantity()
+
+    # Generate image
+    output_file = create_output_image(
+        furniture,
+        wood,
+        length,
+        width,
+        height,
+        design,
+        quantity
+    )
+
+    # Final result
+    print("\n" + "=" * 60)
+    print("DESIGN CREATED SUCCESSFULLY")
+    print("=" * 60)
+    print(f"Furniture : {furniture}")
+    print(f"Wood      : {wood}")
+    print(f"Size      : {length:g} x {width:g} x {height:g} inches")
+    print(f"Design    : {design}")
+    print(f"Quantity  : {quantity}")
+    print("\nImage saved at:")
+    print(output_file)
+
+    try:
+        Image.open(output_file).show()
+    except Exception:
+        pass
+
+
+# ============================================================
+# PROGRAM START
+# ============================================================
+
+if __name__ == "__main__":
+    while True:
+        timber_charm()
+
+        again = input(
+            "\nCreate another custom design? (yes/no): "
+        ).strip().lower()
+
+        if again != "yes":
+            print("\nThank you for using Timber Charm!")
+            break
