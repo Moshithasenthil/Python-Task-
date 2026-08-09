@@ -1,0 +1,623 @@
+from PIL import Image, ImageDraw, ImageFont
+import os
+
+# ============================================================
+# TIMBER CHARM - SIMPLE WOOD FURNITURE DESIGN PROGRAM
+# ============================================================
+
+# Furniture and available woods
+furniture = {
+    "1": ["Sofa", ["Teak", "Oak", "Indian Rosewood", "Pine"]],
+    "2": ["Bed", ["Teak", "Walnut", "Indian Rosewood", "Mango"]],
+    "3": ["TV Stand", ["Teak", "Vengai", "Indian Rosewood", "Plywood"]],
+    "4": ["Wardrobe", ["Teak", "White Oak", "Plywood", "Pine"]],
+    "5": ["Dining Table", ["Teak", "Sal", "Indian Rosewood", "Mango"]],
+    "6": ["Window", ["Teak", "Sal", "Vengai", "Pine"]],
+    "7": ["Door", ["Teak", "Sal", "Indian Rosewood", "Plywood"]],
+    "8": ["Swing", ["Teak", "Vengai", "Indian Rosewood", "Mahogany"]],
+    "9": ["Dressing Table", ["Teak", "Mango", "Indian Rosewood", "Plywood"]],
+    "10": ["Teapoy", ["Teak", "Oak", "Indian Rosewood", "Pine"]]
+}
+
+# Wood colours
+wood_colors = {
+    "Teak": "#A66A2C",
+    "Oak": "#C18A52",
+    "Indian Rosewood": "#542A1A",
+    "Pine": "#D9B77A",
+    "Walnut": "#5A3825",
+    "Mango": "#B87935",
+    "Vengai": "#6B351D",
+    "Plywood": "#C49A6C",
+    "White Oak": "#E2C79D",
+    "Sal": "#8F542E",
+    "Mahogany": "#6E2F22"
+}
+
+# Design types
+designs = {
+    "1": "Classic",
+    "2": "Modern",
+    "3": "Traditional",
+    "4": "Contemporary"
+}
+
+
+# ============================================================
+# MAIN PROGRAM
+# ============================================================
+
+while True:
+
+    print("\n" + "=" * 50)
+    print("              TIMBER CHARM")
+    print("       CUSTOM WOOD FURNITURE DESIGN")
+    print("=" * 50)
+
+    # --------------------------------------------------------
+    # STEP 1 - SELECT FURNITURE
+    # --------------------------------------------------------
+
+    print("\nSTEP 1 - SELECT FURNITURE")
+    print("-" * 30)
+
+    for number in furniture:
+        print(number + ".", furniture[number][0])
+
+    while True:
+        choice = input("Enter furniture number: ")
+
+        if choice in furniture:
+            break
+
+        print("Invalid choice. Please try again.")
+
+    furniture_name = furniture[choice][0]
+    available_woods = furniture[choice][1]
+
+    # --------------------------------------------------------
+    # STEP 2 - SELECT WOOD
+    # --------------------------------------------------------
+
+    print("\nSTEP 2 - SELECT WOOD")
+    print("-" * 30)
+
+    for i in range(len(available_woods)):
+        print(str(i + 1) + ".", available_woods[i])
+
+    while True:
+        wood_choice = input("Enter wood number: ")
+
+        if wood_choice.isdigit():
+            wood_number = int(wood_choice)
+
+            if 1 <= wood_number <= len(available_woods):
+                break
+
+        print("Invalid choice. Please try again.")
+
+    wood = available_woods[wood_number - 1]
+    color = wood_colors[wood]
+
+    # --------------------------------------------------------
+    # STEP 3 - ENTER DIMENSIONS
+    # --------------------------------------------------------
+
+    print("\nSTEP 3 - ENTER DIMENSIONS")
+    print("-" * 30)
+
+    while True:
+        try:
+            length = float(input("Enter length in inches: "))
+
+            if length > 0:
+                break
+
+            print("Enter a number greater than 0.")
+
+        except:
+            print("Please enter a valid number.")
+
+    while True:
+        try:
+            width = float(input("Enter width in inches: "))
+
+            if width > 0:
+                break
+
+            print("Enter a number greater than 0.")
+
+        except:
+            print("Please enter a valid number.")
+
+    while True:
+        try:
+            height = float(input("Enter height in inches: "))
+
+            if height > 0:
+                break
+
+            print("Enter a number greater than 0.")
+
+        except:
+            print("Please enter a valid number.")
+
+    # --------------------------------------------------------
+    # STEP 4 - SELECT DESIGN
+    # --------------------------------------------------------
+
+    print("\nSTEP 4 - SELECT DESIGN")
+    print("-" * 30)
+
+    for number in designs:
+        print(number + ".", designs[number])
+
+    while True:
+        design_choice = input("Enter design number: ")
+
+        if design_choice in designs:
+            break
+
+        print("Invalid choice. Please try again.")
+
+    design = designs[design_choice]
+
+    # --------------------------------------------------------
+    # STEP 5 - ENTER QUANTITY
+    # --------------------------------------------------------
+
+    print("\nSTEP 5 - ENTER QUANTITY")
+    print("-" * 30)
+
+    while True:
+        try:
+            quantity = int(input("Enter quantity: "))
+
+            if quantity > 0:
+                break
+
+            print("Quantity must be greater than 0.")
+
+        except:
+            print("Please enter a whole number.")
+
+    # ========================================================
+    # CREATE IMAGE
+    # ========================================================
+
+    print("\nCreating your furniture design...")
+
+    image = Image.new(
+        "RGB",
+        (1000, 1200),
+        "#F7F2EA"
+    )
+
+    draw = ImageDraw.Draw(image)
+
+    # --------------------------------------------------------
+    # FONTS
+    # --------------------------------------------------------
+
+    try:
+        title_font = ImageFont.truetype(
+            "arial.ttf", 40
+        )
+
+        heading_font = ImageFont.truetype(
+            "arial.ttf", 28
+        )
+
+        normal_font = ImageFont.truetype(
+            "arial.ttf", 22
+        )
+
+    except:
+        title_font = ImageFont.load_default()
+        heading_font = ImageFont.load_default()
+        normal_font = ImageFont.load_default()
+
+    # --------------------------------------------------------
+    # HEADER
+    # --------------------------------------------------------
+
+    draw.rectangle(
+        [0, 0, 1000, 120],
+        fill="#4A2C1A"
+    )
+
+    draw.text(
+        (500, 40),
+        "TIMBER CHARM",
+        fill="white",
+        font=title_font,
+        anchor="mm"
+    )
+
+    draw.text(
+        (500, 85),
+        "CUSTOM WOOD FURNITURE",
+        fill="#E8D5B7",
+        font=normal_font,
+        anchor="mm"
+    )
+
+    # --------------------------------------------------------
+    # FURNITURE NAME
+    # --------------------------------------------------------
+
+    draw.text(
+        (500, 155),
+        furniture_name.upper(),
+        fill="#4A2C1A",
+        font=heading_font,
+        anchor="mm"
+    )
+
+    draw.text(
+        (500, 195),
+        design + " Design",
+        fill="#8B5E34",
+        font=normal_font,
+        anchor="mm"
+    )
+
+    # ========================================================
+    # SIMPLE FURNITURE DRAWINGS
+    # ========================================================
+
+    if furniture_name == "Sofa":
+
+        draw.rectangle(
+            [250, 350, 750, 500],
+            fill=color,
+            outline="#2B2118",
+            width=5
+        )
+
+        draw.rectangle(
+            [300, 280, 700, 400],
+            fill=color,
+            outline="#2B2118",
+            width=5
+        )
+
+        draw.rectangle(
+            [270, 480, 320, 600],
+            fill=color
+        )
+
+        draw.rectangle(
+            [680, 480, 730, 600],
+            fill=color
+        )
+
+    elif furniture_name == "Bed":
+
+        draw.rectangle(
+            [200, 350, 800, 550],
+            fill="#D6B08A",
+            outline="#2B2118",
+            width=5
+        )
+
+        draw.rectangle(
+            [200, 280, 800, 370],
+            fill=color,
+            outline="#2B2118",
+            width=5
+        )
+
+        draw.rectangle(
+            [250, 520, 320, 650],
+            fill=color
+        )
+
+        draw.rectangle(
+            [680, 520, 750, 650],
+            fill=color
+        )
+
+    elif furniture_name == "TV Stand":
+
+        draw.rectangle(
+            [200, 450, 800, 550],
+            fill=color,
+            outline="#2B2118",
+            width=5
+        )
+
+        draw.rectangle(
+            [300, 550, 400, 650],
+            fill=color
+        )
+
+        draw.rectangle(
+            [600, 550, 700, 650],
+            fill=color
+        )
+
+        draw.rectangle(
+            [350, 300, 650, 440],
+            fill="#222222",
+            outline="#111111",
+            width=5
+        )
+
+    elif furniture_name == "Wardrobe":
+
+        draw.rectangle(
+            [300, 250, 700, 650],
+            fill=color,
+            outline="#2B2118",
+            width=6
+        )
+
+        draw.line(
+            [500, 250, 500, 650],
+            fill="#2B2118",
+            width=5
+        )
+
+        draw.ellipse(
+            [470, 430, 490, 450],
+            fill="#D4AF37"
+        )
+
+        draw.ellipse(
+            [510, 430, 530, 450],
+            fill="#D4AF37"
+        )
+
+    elif furniture_name == "Dining Table":
+
+        draw.rectangle(
+            [200, 350, 800, 450],
+            fill=color,
+            outline="#2B2118",
+            width=5
+        )
+
+        draw.rectangle(
+            [250, 450, 310, 650],
+            fill=color
+        )
+
+        draw.rectangle(
+            [690, 450, 750, 650],
+            fill=color
+        )
+
+        draw.rectangle(
+            [350, 450, 410, 650],
+            fill=color
+        )
+
+        draw.rectangle(
+            [590, 450, 650, 650],
+            fill=color
+        )
+
+    elif furniture_name == "Window":
+
+        draw.rectangle(
+            [250, 280, 750, 650],
+            fill=color,
+            outline="#2B2118",
+            width=8
+        )
+
+        draw.rectangle(
+            [300, 330, 500, 600],
+            fill="#BFE3F2"
+        )
+
+        draw.rectangle(
+            [500, 330, 700, 600],
+            fill="#BFE3F2"
+        )
+
+        draw.line(
+            [500, 330, 500, 600],
+            fill="#2B2118",
+            width=5
+        )
+
+        draw.line(
+            [300, 465, 700, 465],
+            fill="#2B2118",
+            width=5
+        )
+
+    elif furniture_name == "Door":
+
+        draw.rectangle(
+            [330, 200, 670, 700],
+            fill=color,
+            outline="#2B2118",
+            width=7
+        )
+
+        draw.rectangle(
+            [380, 270, 620, 620],
+            outline="#3A2418",
+            width=5
+        )
+
+        draw.ellipse(
+            [580, 450, 610, 480],
+            fill="#D4AF37"
+        )
+
+    elif furniture_name == "Swing":
+
+        draw.line(
+            [300, 250, 500, 600],
+            fill="#2B2118",
+            width=10
+        )
+
+        draw.line(
+            [700, 250, 500, 600],
+            fill="#2B2118",
+            width=10
+        )
+
+        draw.rectangle(
+            [330, 470, 670, 540],
+            fill=color,
+            outline="#2B2118",
+            width=5
+        )
+
+    elif furniture_name == "Dressing Table":
+
+        draw.rectangle(
+            [250, 480, 750, 560],
+            fill=color,
+            outline="#2B2118",
+            width=5
+        )
+
+        draw.rectangle(
+            [320, 560, 390, 680],
+            fill=color
+        )
+
+        draw.rectangle(
+            [610, 560, 680, 680],
+            fill=color
+        )
+
+        draw.rectangle(
+            [350, 280, 650, 450],
+            fill="#BFE3F2",
+            outline="#2B2118",
+            width=5
+        )
+
+    else:
+        # Teapoy
+
+        draw.rectangle(
+            [300, 380, 700, 470],
+            fill=color,
+            outline="#2B2118",
+            width=5
+        )
+
+        draw.rectangle(
+            [350, 470, 410, 650],
+            fill=color
+        )
+
+        draw.rectangle(
+            [590, 470, 650, 650],
+            fill=color
+        )
+
+    # ========================================================
+    # CUSTOMER REQUIREMENTS
+    # ========================================================
+
+    draw.rounded_rectangle(
+        [100, 750, 900, 1080],
+        radius=20,
+        fill="white",
+        outline="#B48A60",
+        width=4
+    )
+
+    draw.text(
+        (500, 790),
+        "CUSTOMER REQUIREMENTS",
+        fill="#4A2C1A",
+        font=heading_font,
+        anchor="mm"
+    )
+
+    details = [
+        "Furniture : " + furniture_name,
+        "Wood      : " + wood,
+        "Length    : " + str(length) + " inches",
+        "Width     : " + str(width) + " inches",
+        "Height    : " + str(height) + " inches",
+        "Design    : " + design,
+        "Quantity  : " + str(quantity)
+    ]
+
+    y = 840
+
+    for detail in details:
+
+        draw.text(
+            (150, y),
+            detail,
+            fill="#222222",
+            font=normal_font
+        )
+
+        y = y + 35
+
+    # --------------------------------------------------------
+    # FOOTER
+    # --------------------------------------------------------
+
+    draw.rectangle(
+        [0, 1120, 1000, 1200],
+        fill="#4A2C1A"
+    )
+
+    draw.text(
+        (500, 1160),
+        "CUSTOM DESIGN SPECIFICATION",
+        fill="white",
+        font=normal_font,
+        anchor="mm"
+    )
+
+    # ========================================================
+    # SAVE IMAGE
+    # ========================================================
+
+    if not os.path.exists("design_outputs"):
+        os.mkdir("design_outputs")
+
+    filename = (
+        "design_outputs/"
+        + furniture_name.replace(" ", "_")
+        + "_"
+        + wood.replace(" ", "_")
+        + ".png"
+    )
+
+    image.save(filename)
+
+    print("\n" + "=" * 50)
+    print("DESIGN CREATED SUCCESSFULLY!")
+    print("=" * 50)
+
+    print("Furniture :", furniture_name)
+    print("Wood      :", wood)
+    print("Size      :", length, "x", width, "x", height, "inches")
+    print("Design    :", design)
+    print("Quantity  :", quantity)
+    print("Image     :", filename)
+
+    # Open the image
+    try:
+        image.show()
+    except:
+        print("Image saved successfully.")
+
+    # --------------------------------------------------------
+    # CREATE ANOTHER DESIGN?
+    # --------------------------------------------------------
+
+    again = input(
+        "\nDo you want to create another design? (yes/no): "
+    ).lower()
+
+    if again != "yes":
+        print("\nThank you for using Timber Charm!")
+        break
